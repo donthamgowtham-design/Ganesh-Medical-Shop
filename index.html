@@ -307,7 +307,25 @@ tbody td{padding:9px 12px;font-size:12.5px;vertical-align:middle}
         <div class="autocomplete-list" id="ac-list"></div>
       </div>
       <div class="form-grid">
-        <div class="fg"><label>Medicine Name *</label><input type="text" id="f-name" placeholder="e.g. Paracetamol 650mg"/></div>
+        <div class="fg">
+  <label>Medicine Name *</label>
+  <input type="text" id="f-name" list="all-medicines-list" placeholder="Type starting letters (e.g., Pan)..." autocomplete="off"/>
+  <datalist id="all-medicines-list">
+    <option value="Paracetamol 650mg">
+    <option value="Pantoprazole 40mg">
+    <option value="Pan-D Capsule">
+    <option value="Pan-40">
+    <option value="Dolo 650mg">
+    <option value="Calpol 650mg">
+    <option value="Limcee 500mg">
+    <option value="Aciloc 150mg">
+    <option value="Rantac 150">
+    <option value="Amoxicillin 500mg">
+    <option value="Azithromycin 500mg">
+    <option value="Cetirizine 10mg">
+    <option value="Combiflam">
+  </datalist>
+</div>
         <div class="fg"><label>Batch Number *</label><input type="text" id="f-batch" placeholder="e.g. BT-20240115"/></div>
         <div class="fg"><label>Quantity (Strips) *</label><input type="number" id="f-qty" min="0" placeholder="50"/></div>
         <div class="fg"><label>Reorder Level</label><input type="number" id="f-reorder" min="0" placeholder="10"/></div>
@@ -538,6 +556,7 @@ tbody td{padding:9px 12px;font-size:12.5px;vertical-align:middle}
 
 <script>
 'use strict';
+let inventory = JSON.parse(localStorage.getItem('medicines_inventory')) || [];
 
 // ═══════════════════════════════════════════════
 // COMPLETE MEDICINE MASTER LIST (500+ medicines)
