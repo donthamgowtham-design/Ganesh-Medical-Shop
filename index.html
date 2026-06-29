@@ -1500,11 +1500,11 @@ window.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 <script type="module">
-  // Import the functions you need from the SDKs you need
+  // Import Firebase Core and Analytics
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
   
-  // ⚡ ADD THIS LINE to connect to the database!
+  // Import Firestore Database functions
   import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
   // Your web app's Firebase configuration
@@ -1522,8 +1522,12 @@ window.addEventListener('DOMContentLoaded',function(){
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   
-  // ⚡ INITIALIZE FIRESTORE DATABASE
+  // Initialize Firestore Database
   const db = getFirestore(app);
+
+  // Expose db globally so your other scripts can use it
+  window.db = db;
+  window.dbCollections = { collection, addDoc, getDocs, deleteDoc, doc };
 </script>
 </body>
 </html>
