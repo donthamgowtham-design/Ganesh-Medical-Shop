@@ -998,8 +998,18 @@ async function saveMedicine(){
       else{data.createdAt=firebase.firestore.FieldValue.serverTimestamp();await db.collection('medicines').add(data);showToast('✅ '+name+' saved to Firebase!');}
     }catch(e){showToast('❌ '+e.message);return;}
   }else{
-    if(editingId){const i=medicines.findIndex(m=>m.id===editingId);if(i>-1)medicines[i]=Object.assign({id:editingId},data);showToast('✅ '+name+' updated (Demo)');}
-    else{data.id='local_'+Date.now();data.createdAt=new Date().toISOString();medicines.push(data);showToast('✅ '+name+' added (Demo Mode)');}
+    if (editingId) {
+      const i = medicines.findIndex(m => m.id === editingId);
+      if (i > -1) medicines[i] = Object.assign({ id: editingId }, data);
+      localStorage.setItem('medicines_inventory', JSON.stringify(medicines)); // Saves edits
+      showToast('✅ ' + name + ' updated (Demo)');
+    } else {
+      data.id = 'local_' + Date.now();
+      data.createdAt = new Date().toISOString();
+      medicines.push(data);
+      localStorage.setItem('medicines_inventory', JSON.stringify(medicines)); // Saves new additions
+      showToast('✅ ' + name + ' added (Demo Mode)');
+    }
     renderAll();
   }
   clearForm(); editingId=null;
